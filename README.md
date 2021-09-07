@@ -1,4 +1,4 @@
-# Basic-NetworkCore
+# Basic-SnowNetCore
 
 ### 목적
 - 네트워크 테스트를 위해 Code를 반복 제작하는 것을 방지하기 위해 만든 공개용 Network Core Library
