@@ -1,8 +1,12 @@
-# Basic-SnowNetCore
+# Basic-SnowNetCore SINCE 2021
+
+### 환경
+
 
 ### 목적
 - 네트워크 테스트를 위해 Code를 반복 제작하는 것을 방지하기 위해 만든 공개용 Network Core Library
 - Send 와 Recv가 가능할 정도의 정말 단순한 기능만 지원을 한다.
+
 
 ### 유의 사항
 - IOCP는 추후에 넣을 가능성이 있음 현재는 기본적인 블럭킹/논블럭킹 Socket만 지원
