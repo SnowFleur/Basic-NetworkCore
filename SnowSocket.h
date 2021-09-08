@@ -41,7 +41,7 @@ public:
     /*Linger는 CloseSocket을 했을 때 Send 버퍼에 남은 데이터를 보낼지 말지 정하는 옵션 함수*/
     inline bool SetLinger(UINT16 onoff, UINT16 linger) {
         LINGER option{};
-        option.l_onoff = onoff;
+        option.l_onoff  = onoff;
         option.l_linger = linger;
         return SetSocketOption(SO_LINGER, option);
     }
@@ -76,10 +76,11 @@ public:
         return SetSocketOption(SO_CONDITIONAL_ACCEPT, flag);
     }
 
-    bool Bind(const SOCKADDR_IN* sockAddrIn);
-    bool Connect(const SOCKADDR_IN* serverAddr);
-    bool Listen();
-    bool Close();
+    bool    Bind(const SOCKADDR_IN* sockAddrIn);
+    bool    Connect(const SOCKADDR_IN* serverAddr);
+    SOCKET  Accept(const SOCKADDR* socketAddr);
+    bool    Listen();
+    bool    Close();
 
 private:
     template<class _Ty>

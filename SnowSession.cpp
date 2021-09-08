@@ -59,50 +59,6 @@ bool CSnowSession::OnSend(void* packet) {
     return true;
 }
 
-void CSnowSession::PostSend(void* packet, DWORD ioByte) {
-
-	//// N-Send를 진행한다.
-	//// 패킷이 다 안갈 수 있기 때문에 그거에 대한 처리를 진행한다.
-
-
-	////남은 데이터가 있는지 체크
-	////전부다 보낸게 아니다.
-	//// if(보낸 패킷량 <ioByte)
-	//if (false) {
-
-	//	// ref카운터 또 증가
-	//	// 이 카운터가 어느 이상 넘어가면 그 세션을 자른다.
-	//	InCrementSendRef();
-
-	//	//패킷이 남아있으니 다시 Send
-	//	OnSend(packet);
-	//}
-
-	//else {
-	//	// ref카운터 감소
-	//	DeCrementSendRef();
-
-	//	// SendQueue Pop
-	//	delete packet;
-
-	//	// std::cout << "Before Delete\n";
-	//	// delete m_sendQueue.front();
-	//	// std::cout << "After Delete\n";
-
-	//	 // Queue가 남아있다면 다음꺼 전송
-	//	void* ptr = nullptr;
-	//	if (m_sendQueue.try_pop(ptr)) {
-	//		OnSend(ptr);
-	//	}
-	//	//아니라면 sendComplet true
-	//	else {
-	//		m_amSendComplte.store(true);
-	//	}
-	//}
-}
-
-
-
 void CSnowSession::PushSendQueue(void* packet) {
    /* m_sendQueue.push(packet);
 

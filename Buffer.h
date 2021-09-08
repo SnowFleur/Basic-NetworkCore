@@ -7,8 +7,8 @@
 -   [2021.09.08]
 -   SImple Buffer 기능을 가지는 Class
 -
--
 */
+
 class CBuffer {
 private:
 	const uint32_t		BUFFER_SIZE;

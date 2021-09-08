@@ -38,7 +38,6 @@ public:
     CSnowThread(CSnowThread&&)noexcept              = delete;
     CSnowThread& operator=(CSnowThread&&)           = delete;
 public:
-
     /*여러 가지 기능들 */
     void        SetThreadPriority(const int32_t priority);
     int32_t     GetThreadPriority()const;
