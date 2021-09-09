@@ -1,66 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="main">
+    <Filter Include="SnowNetCore">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="SnowNetcore">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="SnowNetCore\SnowThread">
+      <UniqueIdentifier>{8116d920-c6b5-4b1a-97ad-84e8860d84ad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SnowNetcore\SnowThread">
-      <UniqueIdentifier>{9f1daddc-3016-48c3-b806-b9f591098170}</UniqueIdentifier>
+    <Filter Include="SnowNetCore\Header">
+      <UniqueIdentifier>{4453234a-63e0-4864-9709-2353ec275ed9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SnowNetcore\SnowSession">
-      <UniqueIdentifier>{211ca422-54d6-427c-af51-37f737df9bc3}</UniqueIdentifier>
+    <Filter Include="SnowNetCore\SnowSession">
+      <UniqueIdentifier>{39354ef7-ea8c-47ff-a1a6-372f3870a96e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SnowNetcore\SnowSocket">
-      <UniqueIdentifier>{c6a5febb-53fd-4da4-976b-6894bfde9343}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SnowNetcore\Header">
-      <UniqueIdentifier>{3ebc7424-5a81-4c30-97cb-8ffd099042f5}</UniqueIdentifier>
+    <Filter Include="SnowNetCore\SnowSocket">
+      <UniqueIdentifier>{771c3705-11bc-46f5-b9cc-fb8588f24889}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dllmain.cpp">
-      <Filter>main</Filter>
-    </ClCompile>
-    <ClCompile Include="SnowSocket.cpp">
-      <Filter>SnowNetcore\SnowSocket</Filter>
-    </ClCompile>
-    <ClCompile Include="SnowSession.cpp">
-      <Filter>SnowNetcore\SnowSession</Filter>
-    </ClCompile>
-    <ClCompile Include="SnowThread.cpp">
-      <Filter>SnowNetcore\SnowThread</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="SnowSocket.h">
-      <Filter>SnowNetcore\SnowSocket</Filter>
-    </ClInclude>
-    <ClInclude Include="SnowSession.h">
-      <Filter>SnowNetcore\SnowSession</Filter>
-    </ClInclude>
-    <ClInclude Include="SnowThread.h">
-      <Filter>SnowNetcore\SnowThread</Filter>
+    <ClInclude Include="Buffer.h">
+      <Filter>SnowNetCore\Header</Filter>
     </ClInclude>
     <ClInclude Include="DataTypes.h">
-      <Filter>SnowNetcore\Header</Filter>
+      <Filter>SnowNetCore\Header</Filter>
     </ClInclude>
     <ClInclude Include="DefineUtilty.h">
-      <Filter>SnowNetcore\Header</Filter>
+      <Filter>SnowNetCore\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowSession.h">
+      <Filter>SnowNetCore\SnowSession</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowThread.h">
+      <Filter>SnowNetCore\SnowThread</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowSocket.h">
+      <Filter>SnowNetCore\SnowSocket</Filter>
     </ClInclude>
     <ClInclude Include="WindowsHeader.h">
-      <Filter>SnowNetcore\Header</Filter>
+      <Filter>SnowNetCore\Header</Filter>
     </ClInclude>
-    <ClInclude Include="Buffer.h">
-      <Filter>SnowNetcore\SnowSession</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SnowSession.cpp">
+      <Filter>SnowNetCore\SnowSession</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowThread.cpp">
+      <Filter>SnowNetCore\SnowThread</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowSocket.cpp">
+      <Filter>SnowNetCore\SnowSocket</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
