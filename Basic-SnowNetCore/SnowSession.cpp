@@ -1,7 +1,7 @@
 #include "SnowSession.h"
 
 CSnowSession::CSnowSession(const SOCKET_TYPE socketType, const SessionID sessionID, const uint32_t BUFFER_SIZE) :
-    socket_{ socketType },
+    CSnowSocket{ socketType },
 	sendComplete_(true),
 	sendBuffer_{ BUFFER_SIZE },
 	recvBuffer_{ BUFFER_SIZE }
@@ -29,7 +29,7 @@ bool CSnowSession::OnRecv() {
     int recvReturn	= 0;
 
 	// PostRecv()함수 만들기
-	recvReturn = WSARecv(socket_.GetSocket(), recvBuffer_.GetWSABuffer(), 1, &dwBytes, &dwFlags, NULL, NULL);
+	recvReturn = WSARecv(GetSocket(), recvBuffer_.GetWSABuffer(), 1, &dwBytes, &dwFlags, NULL, NULL);
 	if (recvReturn == SOCKET_ERROR) {
 		if (WSAGetLastError() != WSA_IO_PENDING) {
 			//PRINT_ERROR_LOG(" WSARecv ", " ID: ", GetSessionID(), "WSAGetLastError: ", WSAGetLastError());
@@ -39,7 +39,7 @@ bool CSnowSession::OnRecv() {
     return true;
 }
 
-bool CSnowSession::OnSend(void* packet) {
+bool CSnowSession::OnSend(Packet packet) {
 	DWORD dwBytes = 0, dwFlags = 0;
 	int sendReturn = 0;
 
@@ -48,7 +48,7 @@ bool CSnowSession::OnSend(void* packet) {
 	//패킷 상태 체크
     if (PacketValidCheck(p) == false) return false;
 
-    sendReturn = WSASend(socket_.GetSocket(),sendBuffer_.GetWSABuffer(), 1, &dwBytes, dwFlags, NULL, NULL);
+    sendReturn = WSASend(GetSocket(),sendBuffer_.GetWSABuffer(), 1, &dwBytes, dwFlags, NULL, NULL);
     if (sendReturn == SOCKET_ERROR) {
         if (WSAGetLastError() != WSA_IO_PENDING) {
             //PRINT_ERROR_LOG(" WSARecv ", " ID: ", GetSessionID(), "WSAGetLastError: ", WSAGetLastError());
@@ -59,7 +59,7 @@ bool CSnowSession::OnSend(void* packet) {
     return true;
 }
 
-void CSnowSession::PushSendQueue(void* packet) {
+void CSnowSession::PushSendQueue(Packet packet) {
    /* m_sendQueue.push(packet);
 
     void* ptr = nullptr;

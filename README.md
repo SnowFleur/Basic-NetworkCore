@@ -35,8 +35,8 @@
 - 기존 WinSocket을 Class 형태로 감싼 클래스로 Socket의 여러 기능을 사용할 수 있다.
 
 #### CSnowSession Class
-- 실제로 네트워크 통신을 진행할 Session Class로 Send, Recv 등의 기능을 사용할 수 있으며 네트워크 사용을 원한다면 이 클래스를 상속받아서 사용한다.
-
+- 실제로 네트워크 통신을 진행할 Session Class로 CSnowSocket을 상속받고 있으며 Send, Recv, Bind 등의 기능을 사용할 수 있다. Session 클래스를 따로 만들고 싶지 않다면 이 클래스를 사용하면 된다.
+  
 #### CSnowThread Class
 - C++11 Thread가 아닌 _BeginThreadEx 함수를 사용하는 Thread로 Thread의 여러 기능들을 Class로 감싼 클래스이다. 아직 미미하지만 여러 기능을 넣을 예정이다.
 

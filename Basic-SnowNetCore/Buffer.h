@@ -11,10 +11,10 @@
 
 class CBuffer {
 private:
-	const uint32_t		BUFFER_SIZE;
+	const uint32_t        BUFFER_SIZE;
 
-	char*				buffer_;
-    WSABUF				wsaBuf_;
+	char*                 buffer_;
+    WSABUF                wsaBuf_;
 public:
 
 	CBuffer(const uint32_t bufferSize):

@@ -40,6 +40,9 @@
     <ClInclude Include="WindowsHeader.h">
       <Filter>SnowNetCore\Header</Filter>
     </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>SnowNetCore\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SnowSession.cpp">
