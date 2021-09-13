@@ -1,11 +1,12 @@
+#include<iostream>
 #include"SnowThread.h"
 
-CSnowThread::~CSnowThread()noexcept {
-    if (hThreadHandle_ != INVALID_HANDLE_VALUE) {
-        //PDH- 커널 객체 반환은 선택이 아닌 필수다.
-        CloseHandle(hThreadHandle_);
-    }
-}
+//CSnowThread::~CSnowThread()noexcept {
+//    if (hThreadHandle_ != INVALID_HANDLE_VALUE) {
+//        //PDH- 커널 객체 반환은 선택이 아닌 필수다.
+//        CloseHandle(hThreadHandle_);
+//    }
+//}
 
 uint32_t CSnowThread::Thread() {
     try {
