@@ -1,12 +1,12 @@
 #include<iostream>
 #include"SnowThread.h"
 
-//CSnowThread::~CSnowThread()noexcept {
-//    if (hThreadHandle_ != INVALID_HANDLE_VALUE) {
-//        //PDH- 커널 객체 반환은 선택이 아닌 필수다.
-//        CloseHandle(hThreadHandle_);
-//    }
-//}
+CSnowThread::~CSnowThread()noexcept {
+    if (hThreadHandle_ != INVALID_HANDLE_VALUE) {
+        //PDH- 커널 객체 반환은 선택이 아닌 필수다.
+        CloseHandle(hThreadHandle_);
+    }
+}
 
 uint32_t CSnowThread::Thread() {
     try {
@@ -17,6 +17,11 @@ uint32_t CSnowThread::Thread() {
             cCallBackFuncion_();
             auto EndTime = high_resolution_clock::now();
             auto ElapsedTime = duration_cast<milliseconds>(EndTime - StartTime).count();
+
+            if (optionFlag_ & PRINT_THREAD_RESPONSIVE_TIME) {
+                std::cout << "Thread Resonsive Time: " << ElapsedTime << "ms\n";
+            }
+
         }
     }
     catch (std::exception& e) {
@@ -50,6 +55,10 @@ uint32_t CSnowThread::GetThreadID()const {
     return -1;
 }
 
-inline HANDLE  CSnowThread::getHandle()const {
+HANDLE CSnowThread::GetHandle()const {
     return hThreadHandle_;
+}
+
+void CSnowThread::ToglePrintThreadResponsiveTime() {
+    optionFlag_ ^= PRINT_THREAD_RESPONSIVE_TIME;
 }
