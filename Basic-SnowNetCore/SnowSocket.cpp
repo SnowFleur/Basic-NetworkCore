@@ -1,5 +1,22 @@
 #include"SnowSocket.h"
 
+void CSnowSocket::InitSocket(const SOCKET_TYPE socketType, const DWORD dwFlags) {
+
+    switch (socketType) {
+    case SOCKET_TYPE::TCP_TYPE:
+        socket_ = WSASocket(AF_INET, SOCK_STREAM, IPPROTO_TCP, NULL, 0, dwFlags);
+        break;
+    case SOCKET_TYPE::UDP_TYPE:
+        socket_ = WSASocket(AF_INET, SOCK_DGRAM, IPPROTO_UDP, NULL, 0, dwFlags);
+        break;
+    default:
+        break;
+    }
+    if (socket_ == INVALID_SOCKET) {
+        std::cout << "Can Not Init Socket" << WSAGetLastError() << "\n";
+    }
+}
+
 bool CSnowSocket::Bind(const SOCKADDR_IN* sockAddrIn) {
 
     if (sockAddrIn == nullptr) {

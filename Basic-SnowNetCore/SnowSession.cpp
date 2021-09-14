@@ -1,10 +1,21 @@
 #include "SnowSession.h"
 
 CSnowSession::CSnowSession(const SOCKET_TYPE socketType, const SessionID sessionID, const uint32_t BUFFER_SIZE) :
-    CSnowSocket{ socketType },
-	sendComplete_(true),
+	sessionId_(sessionID),
+	sendComplete_(false),
+	isAlive_(false),
 	sendBuffer_{ BUFFER_SIZE },
 	recvBuffer_{ BUFFER_SIZE }
+{
+    InitSocket(socketType);
+}
+
+CSnowSession::CSnowSession(const uint32_t BUFFER_SIZE) :
+    sessionId_(0),
+    sendComplete_(false),
+    isAlive_(false),
+    sendBuffer_{ BUFFER_SIZE },
+    recvBuffer_{ BUFFER_SIZE }
 {
 }
 
