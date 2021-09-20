@@ -19,17 +19,21 @@ public:
 
 	CBuffer(const uint32_t bufferSize):
 		BUFFER_SIZE(bufferSize),
-		buffer_(nullptr)
-	{
-		//어쩔 수 없이 동적할당
-		buffer_ = std::make_unique<_Ty[]>(BUFFER_SIZE);
+        buffer_(nullptr)
+    {
+#if VER_CPP_20
+        buffer_ = std::make_shared<_Ty[]>(BUFFER_SIZE);
+#else
+        buffer_ = std::shared_ptr<_Ty[]>(new _Ty[BUFFER_SIZE]);
+#endif
+
 		wsaBuf_.buf		= buffer_.get();
 		wsaBuf_.len		= BUFFER_SIZE;
 	}
 
     ~CBuffer()noexcept {
-        ZeroMemory(&wsaBuf_, sizeof(WSABUF));
-        //SAFE_DELETE_MULTI(buffer_); Smart Pointer로 변경
+        ZeroMemory(&wsaBuf_, sizeof(WSABUF));   // 혹시 모르니 내용 Clear
+        //SAFE_DELETE_MULTI(buffer_);           // Smart Pointer로 변경
     }
 
 

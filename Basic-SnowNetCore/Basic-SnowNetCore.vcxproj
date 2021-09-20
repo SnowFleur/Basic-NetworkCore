@@ -158,6 +158,7 @@
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="DataTypes.h" />
     <ClInclude Include="DefineUtilty.h" />
+    <ClInclude Include="NetAddress.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SnowSession.h" />
     <ClInclude Include="SnowSocket.h" />
@@ -165,6 +166,7 @@
     <ClInclude Include="WindowsHeader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="NetAddress.cpp" />
     <ClCompile Include="SnowSession.cpp" />
     <ClCompile Include="SnowSocket.cpp" />
     <ClCompile Include="SnowThread.cpp" />
