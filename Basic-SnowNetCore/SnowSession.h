@@ -45,8 +45,8 @@ public:
     inline void SetAlive(const bool alive)               { isAlive_ = alive; }
     inline bool GetAlive()const                          { return isAlive_; }
     void PrintSessionAddrInfor()const                    { sessionAddress_.PrintIPAndPort(); }
-    PSOCKADDR_IN GeSessionAddr()                         { return sessionAddress_.GetAddrInfor(); }
-    void SeSessionAdder(PSOCKADDR pRemoteSocketAddr)     { sessionAddress_.SetAddrInfor(pRemoteSocketAddr); };
+    PSOCKADDR_IN GetSessionAddr()                        { return sessionAddress_.GetAddrInfor(); }
+    void SetSessionAdder(PSOCKADDR pRemoteSocketAddr)    { sessionAddress_.SetAddrInfor(pRemoteSocketAddr); };
 
     bool              OnRecv();
     bool              OnSend(Packet packet);
