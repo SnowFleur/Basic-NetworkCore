@@ -158,6 +158,7 @@
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="DataTypes.h" />
     <ClInclude Include="DefineUtilty.h" />
+    <ClInclude Include="LogCollector.h" />
     <ClInclude Include="NetAddress.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SnowSession.h" />

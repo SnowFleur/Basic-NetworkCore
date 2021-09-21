@@ -49,6 +49,9 @@
     <ClInclude Include="NetAddress.h">
       <Filter>SnowNetCore\NetAddress</Filter>
     </ClInclude>
+    <ClInclude Include="LogCollector.h">
+      <Filter>SnowNetCore\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SnowSession.cpp">

@@ -13,6 +13,7 @@ template<class _Ty>
 class CBuffer {
 private:
     const uint32_t             BUFFER_SIZE;
+    //To do 다른방법 생각해보기 ex)Vector, Array... 
     std::shared_ptr<_Ty[]>     buffer_;
     WSABUF                     wsaBuf_;
 public:

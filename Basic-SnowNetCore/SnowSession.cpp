@@ -1,4 +1,5 @@
 #include "SnowSession.h"
+#include"LogCollector.h"
 
 CSnowSession::CSnowSession(const SOCKET_TYPE socketType, const SessionID sessionID, const uint32_t BUFFER_SIZE) :
 	sessionId_(sessionID),
@@ -43,8 +44,7 @@ bool CSnowSession::OnRecv() {
 	recvReturn = WSARecv(GetSocket(), recvBuffer_.GetWSABuffer(), 1, &dwBytes, &dwFlags, NULL, NULL);
 	if (recvReturn == SOCKET_ERROR) {
 		if (WSAGetLastError() != WSA_IO_PENDING) {
-			//PRINT_ERROR_LOG(" WSARecv ", " ID: ", GetSessionID(), "WSAGetLastError: ", WSAGetLastError());
-			std::cout << " WSARecv " << " ID: " << GetSessionID() << "WSAGetLastError: " << WSAGetLastError() << "\n";
+			PRINT_ERROR_LOG(" WSARecv ", " ID: ", GetSessionID(), "WSAGetLastError: ", WSAGetLastError());
 		}
 	}
     return true;
@@ -62,8 +62,7 @@ bool CSnowSession::OnSend(Packet packet) {
     sendReturn = WSASend(GetSocket(),sendBuffer_.GetWSABuffer(), 1, &dwBytes, dwFlags, NULL, NULL);
     if (sendReturn == SOCKET_ERROR) {
         if (WSAGetLastError() != WSA_IO_PENDING) {
-            //PRINT_ERROR_LOG(" WSARecv ", " ID: ", GetSessionID(), "WSAGetLastError: ", WSAGetLastError());
-            std::cout << " WSASend " << " ID: " << GetSessionID() << "WSAGetLastError: " << WSAGetLastError() << "\n";
+            PRINT_ERROR_LOG(" WSARecv ", " ID: ", GetSessionID(), "WSAGetLastError: ", WSAGetLastError());
         }
     }
 

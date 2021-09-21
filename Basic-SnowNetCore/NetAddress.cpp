@@ -1,4 +1,5 @@
 #include"NetAddress.h"
+#include"LogCollector.h"
 
 CNetAddress::CNetAddress(){
     Init();
@@ -15,7 +16,7 @@ void CNetAddress::SetAddrInfor(const PSOCKADDR addrinfor) {
 void CNetAddress::PrintIPAndPort()const{
     char buf[32]{ 0 };      //4Byte
     inet_ntop(AF_INET, &acceptClientInfor_.sin_addr, buf, sizeof(buf));
-    //PRINT_INFO_LOG("Accpet IP:", buf,"PORT:",ntohs(acceptClientInfor_.sin_port));
+    PRINT_INFO_LOG("Accpet IP:", buf,"PORT:",ntohs(acceptClientInfor_.sin_port));
 }
 
 const PSOCKADDR_IN CNetAddress::GetAddrInfor() {
