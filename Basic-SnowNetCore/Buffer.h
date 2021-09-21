@@ -24,7 +24,7 @@ public:
 #if VER_CPP_20
         buffer_ = std::make_shared<_Ty[]>(BUFFER_SIZE);
 #else
-        buffer_ = std::shared_ptr<_Ty[]>(new _Ty[BUFFER_SIZE]);
+        buffer_ = std::shared_ptr<_Ty[]>(new _Ty[BUFFER_SIZE]); //메모리 누수 생길일 없겠지?
 #endif
 
 		wsaBuf_.buf		= buffer_.get();
