@@ -21,7 +21,7 @@
 - 그럴일 없겠지만 누구나 수정 및 재배포 가능(사용한다고만 알려주시면 됩니다.)
 
 
-### 🔨 업데이트 예정
+### 🔨 업데이트 예정 ✅: 업데이트 완료
 - Singleton 기반 Log Class✅
 - C++17기능 (std::stirng_view, std::any)
 - Smart Pointer 도입 고려
