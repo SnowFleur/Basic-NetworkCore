@@ -22,7 +22,7 @@
 
 
 ### 🔨 업데이트 예정
-- Singleton 기반 Log Class
+- Singleton 기반 Log Class✅
 - C++17기능 (std::stirng_view, std::any)
 - Smart Pointer 도입 고려
 - 구글의 Protocol Buffer를 사용해서 테스트 프로젝트를 올릴 예정(프로젝트 테스트도 해야함)
