@@ -32,7 +32,7 @@
  - NetAddress Class 추가
  - 
 
-### ✅ 주요 클래스 설명 및 기능
+### 📚 주요 클래스 설명 및 기능
 
 #### CSnowSocket Class
 - 기존 WinSocket을 Class 형태로 감싼 클래스로 Socket의 여러 기능을 사용할 수 있다.
@@ -42,6 +42,9 @@
   
 #### CSnowThread Class
 - C++11 Thread가 아닌 _BeginThreadEx 함수를 사용하는 Thread로 Thread의 여러 기능들을 Class로 감싼 클래스이다. 아직 미미하지만 여러 기능을 넣을 예정이다.
+
+#### Log Class
+- Log를 출력할 수 있는 Log Class이다. 현재는 Print 기능만 지원하며 추후에 SaveLogFile을 지원할 예정이다.
 
   
 
