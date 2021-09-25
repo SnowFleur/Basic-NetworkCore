@@ -21,13 +21,16 @@
 - 그럴일 없겠지만 누구나 수정 및 재배포 가능(사용한다고만 알려주시면 됩니다.)
 
 
-### 🔨 업데이트 예정 ✅: 업데이트 완료
-- Singleton 기반 Log Class✅
-- C++17기능 (std::stirng_view, std::any)
+### 🔨 업데이트 예정 
+- 다양한 C++17기능 (std::stirng_view, std::any, Fold Expression)
 - Smart Pointer 도입 고려
 - 구글의 Protocol Buffer를 사용해서 테스트 프로젝트를 올릴 예정(프로젝트 테스트도 해야함)
-  
- 
+- PacketHandler
+
+### ✅ 업데이트 완료
+ - Log Class 추가 (C++17: Fold Expression)
+ - NetAddress Class 추가
+ - 
 
 ### ✅ 주요 클래스 설명 및 기능
 
