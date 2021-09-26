@@ -36,37 +36,36 @@ bool CSnowSession::PacketValidCheck(const char* packet) {
 	return true;
 }
 
-bool CSnowSession::OnRecv() {
-    DWORD dwBytes	= 0, dwFlags = 0;
-    int recvReturn	= 0;
+int32_t CSnowSession::OnRecv() {
+    DWORD dwBytes = 0, dwFlags = 0;
+    int recvReturn = 0;
 
-	// PostRecv()함수 만들기
-	recvReturn = WSARecv(GetSocket(), recvBuffer_.GetWSABuffer(), 1, &dwBytes, &dwFlags, NULL, NULL);
-	if (recvReturn == SOCKET_ERROR) {
-		if (WSAGetLastError() != WSA_IO_PENDING) {
-			PRINT_ERROR_LOG(" WSARecv ", " ID: ", GetSessionID(), "WSAGetLastError: ", WSAGetLastError());
-		}
-	}
-    return true;
+    // PostRecv()함수 만들기
+    recvReturn = WSARecv(GetSocket(), recvBuffer_.GetWSABuffer(), 1, &dwBytes, &dwFlags, NULL, NULL);
+    if (recvReturn == SOCKET_ERROR) {
+        if (WSAGetLastError() != WSA_IO_PENDING) {
+            PRINT_ERROR_LOG(" WSARecv ", " ID: ", GetSessionID(), "WSAGetLastError: ", WSAGetLastError());
+        }
+    }
+    return recvReturn;
 }
 
-bool CSnowSession::OnSend(Packet packet) {
-	DWORD dwBytes = 0, dwFlags = 0;
-	int sendReturn = 0;
+int32_t CSnowSession::OnSend(Packet packet) {
+    DWORD dwBytes = 0, dwFlags = 0;
+    int sendReturn = 0;
 
-	char* p = reinterpret_cast<char*>(packet);
+    char* p = reinterpret_cast<char*>(packet);
 
-	//패킷 상태 체크
+    //패킷 상태 체크
     if (PacketValidCheck(p) == false) return false;
 
-    sendReturn = WSASend(GetSocket(),sendBuffer_.GetWSABuffer(), 1, &dwBytes, dwFlags, NULL, NULL);
+    sendReturn = WSASend(GetSocket(), sendBuffer_.GetWSABuffer(), 1, &dwBytes, dwFlags, NULL, NULL);
     if (sendReturn == SOCKET_ERROR) {
         if (WSAGetLastError() != WSA_IO_PENDING) {
             PRINT_ERROR_LOG(" WSARecv ", " ID: ", GetSessionID(), "WSAGetLastError: ", WSAGetLastError());
         }
     }
-
-    return true;
+    return sendReturn;
 }
 
 void CSnowSession::PushSendQueue(Packet packet) {
