@@ -77,11 +77,7 @@ bool CSnowSocket::Connect(const SOCKADDR_IN* serverAddr) {
     return true;
 }
 
-SOCKET CSnowSocket::Accept(const SOCKADDR* socketAddr){
-    
+SOCKET CSnowSocket::Accept(const SOCKADDR* socketAddr) {
     int32_t addrLen = sizeof(SOCKADDR);
-
-    SOCKET tempSocket = INVALID_SOCKET;
-    tempSocket = accept(socket_, const_cast<SOCKADDR*>(socketAddr), &addrLen);
-    return tempSocket;
+    return  accept(socket_, const_cast<SOCKADDR*>(socketAddr), &addrLen);
 }

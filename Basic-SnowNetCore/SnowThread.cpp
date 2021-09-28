@@ -1,10 +1,16 @@
 #include<iostream>
 #include"SnowThread.h"
+#include"LogCollector.h"
 
 CSnowThread::~CSnowThread()noexcept {
     if (hThreadHandle_ != INVALID_HANDLE_VALUE) {
         //PDH- 커널 객체 반환은 선택이 아닌 필수다.
-        CloseHandle(hThreadHandle_);
+        if (CloseHandle(hThreadHandle_) == true) {
+            hThreadHandle_ = NULL;
+        }
+        else {
+            PRINT_ERROR_LOG("Thread Close Handle", WSAGetLastError());
+        }
     }
 }
 

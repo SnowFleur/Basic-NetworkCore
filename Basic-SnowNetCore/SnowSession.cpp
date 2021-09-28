@@ -36,7 +36,7 @@ bool CSnowSession::PacketValidCheck(const char* packet) {
 	return true;
 }
 
-int32_t CSnowSession::OnRecv() {
+DWORD CSnowSession::OnRecv() {
     DWORD dwBytes = 0, dwFlags = 0;
     int recvReturn = 0;
 
@@ -47,10 +47,10 @@ int32_t CSnowSession::OnRecv() {
             PRINT_ERROR_LOG(" WSARecv ", " ID: ", GetSessionID(), "WSAGetLastError: ", WSAGetLastError());
         }
     }
-    return recvReturn;
+    return dwBytes;
 }
 
-int32_t CSnowSession::OnSend(Packet packet) {
+DWORD CSnowSession::OnSend(Packet packet) {
     DWORD dwBytes = 0, dwFlags = 0;
     int sendReturn = 0;
 
@@ -65,7 +65,7 @@ int32_t CSnowSession::OnSend(Packet packet) {
             PRINT_ERROR_LOG(" WSARecv ", " ID: ", GetSessionID(), "WSAGetLastError: ", WSAGetLastError());
         }
     }
-    return sendReturn;
+    return dwBytes;
 }
 
 void CSnowSession::PushSendQueue(Packet packet) {
