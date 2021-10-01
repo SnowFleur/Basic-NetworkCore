@@ -5,7 +5,7 @@
 CSnowThread::~CSnowThread()noexcept {
     if (hThreadHandle_ != INVALID_HANDLE_VALUE) {
         //PDH- 커널 객체 반환은 선택이 아닌 필수다.
-        if (CloseHandle(hThreadHandle_) == true) {
+        if (CloseHandle(hThreadHandle_) == TRUE) {
             hThreadHandle_ = NULL;
         }
         else {

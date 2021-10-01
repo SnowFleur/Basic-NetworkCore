@@ -1,22 +1,18 @@
 #include "SnowSession.h"
 #include"LogCollector.h"
 
-CSnowSession::CSnowSession(const SOCKET_TYPE socketType, const SessionID sessionID, const uint32_t BUFFER_SIZE) :
-	sessionId_(sessionID),
-	sendComplete_(false),
-	isAlive_(false),
-	sendBuffer_{ BUFFER_SIZE },
-	recvBuffer_{ BUFFER_SIZE }
+CSnowSession::CSnowSession(const SOCKET_TYPE socketType, const SessionID sessionID) :
+	sessionId_(sessionID)
+	,sendComplete_(false)
+	,isAlive_(false)
 {
     InitSocket(socketType);
 }
 
 CSnowSession::CSnowSession(const uint32_t BUFFER_SIZE) :
-    sessionId_(0),
-    sendComplete_(false),
-    isAlive_(false),
-    sendBuffer_{ BUFFER_SIZE },
-    recvBuffer_{ BUFFER_SIZE }
+    sessionId_(0)
+    , sendComplete_(false)
+    , isAlive_(false)
 {
 }
 
@@ -50,14 +46,9 @@ DWORD CSnowSession::OnRecv() {
     return dwBytes;
 }
 
-DWORD CSnowSession::OnSend(Packet packet) {
+DWORD CSnowSession::OnSend() {
     DWORD dwBytes = 0, dwFlags = 0;
     int sendReturn = 0;
-
-    char* p = reinterpret_cast<char*>(packet);
-
-    //패킷 상태 체크
-    if (PacketValidCheck(p) == false) return false;
 
     sendReturn = WSASend(GetSocket(), sendBuffer_.GetWSABuffer(), 1, &dwBytes, dwFlags, NULL, NULL);
     if (sendReturn == SOCKET_ERROR) {
@@ -69,6 +60,9 @@ DWORD CSnowSession::OnSend(Packet packet) {
 }
 
 void CSnowSession::PushSendQueue(Packet packet) {
+
+    if (PacketValidCheck(reinterpret_cast<char*>(packet)) == false) return;
+
    /* m_sendQueue.push(packet);
 
     void* ptr = nullptr;
