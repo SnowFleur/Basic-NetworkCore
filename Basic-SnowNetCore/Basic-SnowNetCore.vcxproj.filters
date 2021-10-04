@@ -20,6 +20,9 @@
     <Filter Include="SnowNetCore\NetAddress">
       <UniqueIdentifier>{3272a751-f51c-4165-916f-c68ec8f8c8e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SnowNetCore\Utilty">
+      <UniqueIdentifier>{a2b95b08-8704-4470-86cb-776545bd89da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Buffer.h">
@@ -51,6 +54,12 @@
     </ClInclude>
     <ClInclude Include="LogCollector.h">
       <Filter>SnowNetCore\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Lock.h">
+      <Filter>SnowNetCore\Utilty</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketPool.h">
+      <Filter>SnowNetCore\Utilty</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

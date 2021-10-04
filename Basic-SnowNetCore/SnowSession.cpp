@@ -2,19 +2,11 @@
 #include"LogCollector.h"
 
 CSnowSession::CSnowSession(const SOCKET_TYPE socketType, const SessionID sessionID) :
-	sessionId_(sessionID)
+    CSnowSocket(socketType)
+	,sessionId_(sessionID)
 	,sendComplete_(false)
 	,isAlive_(false)
-{
-    InitSocket(socketType);
-}
-
-CSnowSession::CSnowSession(const uint32_t BUFFER_SIZE) :
-    sessionId_(0)
-    , sendComplete_(false)
-    , isAlive_(false)
-{
-}
+{}
 
 CSnowSession::~CSnowSession() {
 #ifdef PRINT_DEBUG_SESSION_DESTRUCTOR

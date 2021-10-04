@@ -158,12 +158,14 @@
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="DataTypes.h" />
     <ClInclude Include="DefineUtilty.h" />
+    <ClInclude Include="Lock.h" />
     <ClInclude Include="LogCollector.h" />
     <ClInclude Include="NetAddress.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SnowSession.h" />
     <ClInclude Include="SnowSocket.h" />
     <ClInclude Include="SnowThread.h" />
+    <ClInclude Include="SocketPool.h" />
     <ClInclude Include="WindowsHeader.h" />
   </ItemGroup>
   <ItemGroup>

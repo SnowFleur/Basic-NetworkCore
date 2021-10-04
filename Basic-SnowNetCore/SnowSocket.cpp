@@ -1,42 +1,43 @@
 #include"SnowSocket.h"
 #include"LogCollector.h"
 
-void CSnowSocket::InitSocket(const SOCKET_TYPE socketType, const DWORD dwFlags) {
-
-    switch (socketType) {
-    case SOCKET_TYPE::TCP_TYPE:
-        socket_ = WSASocket(AF_INET, SOCK_STREAM, IPPROTO_TCP, NULL, 0, dwFlags);
-        break;
-    case SOCKET_TYPE::UDP_TYPE:
-        socket_ = WSASocket(AF_INET, SOCK_DGRAM, IPPROTO_UDP, NULL, 0, dwFlags);
-        break;
-    default:
-        break;
-    }
-    if (socket_ == INVALID_SOCKET) {
-        std::cout << "Can Not Init Socket" << WSAGetLastError() << "\n";
-    }
-}
-
 bool CSnowSocket::Bind(const SOCKADDR_IN* sockAddrIn) {
 
     if (sockAddrIn == nullptr) {
-        PRINT_ERROR_LOG("SOCKADDR_IN IS NULLPTR", "ERROR: ", WSAGetLastError());
+        PRINT_ERROR_LOG("SOCKADDR_IN IS NULLPTR", WSAGetLastError());
         return false;
     }
 
     if (bind(socket_, reinterpret_cast<SOCKADDR*>(const_cast<SOCKADDR_IN*>(sockAddrIn)), sizeof(SOCKADDR_IN)) == SOCKET_ERROR) {
-        PRINT_ERROR_LOG("BIND", "ERROR: ", WSAGetLastError());
+        PRINT_ERROR_LOG("BIND", WSAGetLastError());
         Close();
         return false;
     }
     return true;
 }
 
+bool CSnowSocket::Bind(const char* IP, const USHORT port, const USHORT sinFamily) {
+
+    if ((sinFamily != AF_INET) || (sinFamily != AF_INET6))PRINT_ERROR_LOG("BIND_sinFamily value is Invalid"); return false;
+
+    SOCKADDR_IN sockAddr;
+    ZeroMemory(&sockAddr, sizeof(SOCKADDR_IN));
+    sockAddr.sin_family = sinFamily;
+    sockAddr.sin_port   = htons(port);
+    inet_pton(sinFamily, IP, &sockAddr.sin_addr);
+
+    if (bind(socket_, reinterpret_cast<SOCKADDR*>(const_cast<SOCKADDR_IN*>(&sockAddr)), sizeof(SOCKADDR_IN)) == SOCKET_ERROR) {
+        PRINT_ERROR_LOG("BIND", WSAGetLastError());
+        Close();
+        return false;
+    }
+    return false;
+}
+
 bool CSnowSocket::Listen() {
 
     if (socket_ == INVALID_SOCKET) {
-        PRINT_ERROR_LOG("Listen SOCKET IS INVALID_SOCKET", "ERROR: ", WSAGetLastError());
+        PRINT_ERROR_LOG("SOCKET IS INVALID_SOCKET", WSAGetLastError());
         return false;
     }
 
@@ -57,15 +58,24 @@ bool CSnowSocket::Close() {
     return false;
 }
 
+bool CSnowSocket::Shutdown(){
+
+    if (socket_ != INVALID_SOCKET) {
+        shutdown(socket_,SD_SEND);
+        return true;
+    }
+    return false;
+}
+
 bool CSnowSocket::Connect(const SOCKADDR_IN* serverAddr) {
 
     if (serverAddr == nullptr) {
-        PRINT_ERROR_LOG("Coonect SOCKADDR_IN IS nullptr", WSAGetLastError());
+        PRINT_ERROR_LOG("SOCKADDR_IN IS nullptr", WSAGetLastError());
         return false;
     }
 
     if (socket_ == INVALID_SOCKET) {
-        PRINT_ERROR_LOG("Connect SOCKET IS INVALID_SOCKET", WSAGetLastError());
+        PRINT_ERROR_LOG("SOCKET IS INVALID_SOCKET", WSAGetLastError());
         return false;
     }
 
