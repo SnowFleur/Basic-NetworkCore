@@ -4,7 +4,6 @@
 - Descriptor: Socket의 다양한 기능을 캡슐화한 클래스  
 -
 */
-
 #include"WindowsHeader.h"
 #include"LogCollector.h"
 #include"DataTypes.h"
@@ -67,8 +66,16 @@ public:
     }
 
     /*주기적으로 연결 상태를 확인하는지 정하는 옵션 합수(디폴트 값은 2시간) true=허용, false 사용X*/
-    inline bool SetKeepAlive(bool flag) {
-        return SetSocketOption(SO_KEEPALIVE, flag);
+    inline bool SetKeepAlive(bool onoff, UINT32 checkmsTime, UINT32 interValmsTime) {
+        tcp_keepalive tcpkl;
+        DWORD dwTemp;
+        tcpkl.onoff             = onoff;
+        tcpkl.keepalivetime     = checkmsTime;
+        tcpkl.keepaliveinterval = interValmsTime;
+
+        // return setsockopt(socket_, SOL_SOCKET, SO_UPDATE_ACCEPT_CONTEXT, reinterpret_cast<char*>(&tcpkl), sizeof(tcpkl));
+        // return SetSocketOption(SO_UPDATE_ACCEPT_CONTEXT, tcpkl);
+        return WSAIoctl(socket_, SIO_KEEPALIVE_VALS, &tcpkl, sizeof(tcp_keepalive), 0, 0, &dwTemp, NULL, NULL) == 0 ? true : false;
     }
 
     /*LienSocket의 backlong를 막는 함수true=막기 false=허용 */
