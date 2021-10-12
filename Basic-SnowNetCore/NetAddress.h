@@ -9,7 +9,8 @@
 
 #include"WindowsHeader.h"
 
-class CNetAddress {
+class CNetAddress
+{
 private:
     SOCKADDR_IN    stSockAddrInfor_;
 public:

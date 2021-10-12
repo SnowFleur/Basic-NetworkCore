@@ -1,7 +1,8 @@
 #include"SnowSocket.h"
 #include"LogCollector.h"
 
-bool CSnowSocket::Bind(const SOCKADDR_IN* sockAddrIn) {
+bool CSnowSocket::Bind(const SOCKADDR_IN* sockAddrIn)
+{
 
     if (sockAddrIn == nullptr) {
         PRINT_ERROR_LOG("SOCKADDR_IN IS NULLPTR", WSAGetLastError());

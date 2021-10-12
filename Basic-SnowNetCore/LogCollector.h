@@ -8,26 +8,30 @@
 #include"DefineUtilty.h"
 #include"Singleton.h"
 
-class CLogCollector :public CSingleton<CLogCollector> {
+class CLogCollector :public CSingleton<CLogCollector>
+{
 private:
 
 public:
 #if VER_CPP_17 // c++17ÀÌ»ף
     template<class... _Args>
-    void PrintLog(_Args... args)const {
+    void PrintLog(_Args... args)const
+    {
         //((std::cout << args << " "), ...) << "\n";
         ((std::cout << args), ...);
     }
 
 #elif VER_CPP_14 || VER_CPP_11  //C++ 14 || C++11
     template<class _Ty, class... _Args>
-    void PrintLog(_Ty message, _Args... args)const {
+    void PrintLog(_Ty message, _Args... args)const
+    {
         std::cout << message;
         PrintLog(args...);
     }
 
     template<class _Ty>
-    void PrintLog(_Ty message)const {
+    void PrintLog(_Ty message)const
+    {
         //std::cout << message << "\n";
         std::cout << message;
     }

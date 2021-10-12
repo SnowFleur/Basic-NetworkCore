@@ -8,13 +8,15 @@ CSnowSession::CSnowSession(const SOCKET_TYPE socketType, const SessionID session
 	,isAlive_(false)
 {}
 
-CSnowSession::~CSnowSession() {
+CSnowSession::~CSnowSession()
+{
 #ifdef PRINT_DEBUG_SESSION_DESTRUCTOR
     PRINT_INFO_LOG("packet size is zero or Overflow", "ID: ", GetSessionID(), "º“∏Í¿⁄ »£√‚");
 #endif // PRINT_DEBUG_SESSION_DESTRUCTOR
 }
 
-bool CSnowSession::PacketValidCheck(const char* packet) {
+bool CSnowSession::PacketValidCheck(const char* packet)
+{
 	//if (packet[0] <= 0 || packet[0] >= sizeof(PACKET_SIZE)) {
 	//	PRINT_ERROR_LOG("packet size is zero or Overflow",
 	//		"ID: ", GetSessionID(),
@@ -24,7 +26,8 @@ bool CSnowSession::PacketValidCheck(const char* packet) {
 	return true;
 }
 
-DWORD CSnowSession::OnRecv() {
+DWORD CSnowSession::OnRecv()
+{
     DWORD dwBytes = 0, dwFlags = 0;
     int recvReturn = 0;
 
@@ -38,7 +41,8 @@ DWORD CSnowSession::OnRecv() {
     return dwBytes;
 }
 
-DWORD CSnowSession::OnSend() {
+DWORD CSnowSession::OnSend()
+{
     DWORD dwBytes = 0, dwFlags = 0;
     int sendReturn = 0;
 
@@ -51,7 +55,8 @@ DWORD CSnowSession::OnSend() {
     return dwBytes;
 }
 
-void CSnowSession::PushSendQueue(Packet packet) {
+void CSnowSession::PushSendQueue(Packet packet)
+{
 
     if (PacketValidCheck(reinterpret_cast<char*>(packet)) == false) return;
 

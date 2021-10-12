@@ -5,7 +5,8 @@
 #include"WindowsHeader.h"
 #include"Lock.h"
 
-class CSocketPool{
+class CSocketPool
+{
 private:
     std::queue<SOCKET>  m_freeSocketList;
     size_t              m_poolSize;
@@ -16,7 +17,8 @@ private:
 public:
     CSocketPool(size_t SocketPooSize):
     m_poolSize(SocketPooSize),
-    m_freeSocketList(){
+    m_freeSocketList()
+    {
 
         for(size_t i=0; i<m_poolSize;++i){
             SOCKET temp=INVALID_SOCKET;
@@ -24,7 +26,8 @@ public:
             m_freeSocketList.push(temp);  
         }
     }
-    ~CSocketPool() {
+    ~CSocketPool()
+    {
 
       while (m_freeSocketList.empty() == false) {
         SOCKET temp = m_freeSocketList.front();
@@ -36,7 +39,8 @@ public:
       }
     }
 
-    inline SOCKET PopFreeList() { 
+    inline SOCKET PopFreeList()
+    { 
         
         LockGuard lockguard(m_freeListLock);
 
@@ -48,7 +52,8 @@ public:
         }
     }
 
-    inline void PushFreeList(SOCKET socket){
+    inline void PushFreeList(SOCKET socket)
+    {
 
         LockGuard lockguard(m_freeListLock);
         
