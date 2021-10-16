@@ -1,53 +1,24 @@
-#include<iostream>
 #include"SnowThread.h"
 #include"LogCollector.h"
 
 CSnowThread::~CSnowThread()noexcept
 {
-    if (hThreadHandle_ != INVALID_HANDLE_VALUE) {
+    if (hThreadHandle_ != INVALID_HANDLE_VALUE)
+    {
         //PDH- 커널 객체 반환은 선택이 아닌 필수다.
         if (CloseHandle(hThreadHandle_) == TRUE)
         {
             hThreadHandle_ = NULL;
         }
-        else 
+        else
         {
             PRINT_ERROR_LOG("Thread Close Handle", WSAGetLastError());
         }
     }
 }
 
-uint32_t CSnowThread::Thread()
-{
-    try
-    {
-
-        while (true)
-        {
-
-            auto StartTime = high_resolution_clock::now();
-            cCallBackFuncion_();
-            auto EndTime = high_resolution_clock::now();
-            auto ElapsedTime = duration_cast<milliseconds>(EndTime - StartTime).count();
-
-            if (optionFlag_ & PRINT_THREAD_RESPONSIVE_TIME)
-            {
-                std::cout << "Thread Resonsive Time: " << ElapsedTime << "ms\n";
-            }
-
-        }
-    }
-    catch (std::exception& e)
-    {
-        std::cout << "망했다!" << e.what() << "\n";
-    }
-
-    _endthreadex(0);
-    return 0;
-}
-
 /*여러 가지 기능들 */
-void CSnowThread::SetThreadPriority(const int32_t priority) 
+void CSnowThread::SetThreadPriority(const int32_t priority)
 {
     if (::SetThreadPriority(hThreadHandle_, priority) == 0)
     {
@@ -63,23 +34,8 @@ int32_t CSnowThread::GetThreadPriority() const
 
 void CSnowThread::ContextSwitch() {}
 
-void CSnowThread::Join()
+void CSnowThread::WaitForThread()
 {
-    //TODO 수정하기
-    Sleep(10000);
+    WaitForSingleObject(hThreadHandle_, INFINITE);
 }
 
-uint32_t CSnowThread::GetThreadID()const
-{
-    return -1;
-}
-
-HANDLE CSnowThread::GetHandle()const
-{
-    return hThreadHandle_;
-}
-
-void CSnowThread::ToglePrintThreadResponsiveTime()
-{
-    optionFlag_ ^= PRINT_THREAD_RESPONSIVE_TIME;
-}
