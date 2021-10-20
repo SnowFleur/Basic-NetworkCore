@@ -11,7 +11,8 @@
 #include<iostream>
 using namespace std::chrono;
 
-class CSnowThread {
+class CSnowThread 
+{
     using CallBackFtn = std::function<uint32_t()>;
 private:
     HANDLE                      hThreadHandle_;

@@ -15,17 +15,6 @@ CSnowSession::~CSnowSession()
 #endif // PRINT_DEBUG_SESSION_DESTRUCTOR
 }
 
-bool CSnowSession::PacketValidCheck(const char* packet)
-{
-	//if (packet[0] <= 0 || packet[0] >= sizeof(PACKET_SIZE)) {
-	//	PRINT_ERROR_LOG("packet size is zero or Overflow",
-	//		"ID: ", GetSessionID(),
-	//		"packetSize: ", static_cast<PACKET_SIZE>(packet[0]));
-	//	return false;
-	//}
-	return true;
-}
-
 DWORD CSnowSession::OnRecv()
 {
     DWORD dwBytes = 0, dwFlags = 0;
@@ -57,9 +46,6 @@ DWORD CSnowSession::OnSend()
 
 void CSnowSession::PushSendQueue(Packet packet)
 {
-
-    if (PacketValidCheck(reinterpret_cast<char*>(packet)) == false) return;
-
    /* m_sendQueue.push(packet);
 
     void* ptr = nullptr;
