@@ -1,7 +1,6 @@
 #include"SnowThread.h"
-#include"LogCollector.h"
 
-CSnowThread::~CSnowThread()noexcept
+CSnowThread::~CSnowThread()noexcept 
 {
     if (hThreadHandle_ != INVALID_HANDLE_VALUE)
     {
@@ -9,16 +8,20 @@ CSnowThread::~CSnowThread()noexcept
         if (CloseHandle(hThreadHandle_) == TRUE)
         {
             hThreadHandle_ = NULL;
+#ifdef  PRINT_THREAD_CLOSE_LOG
+            PRINT_INFO_LOG("Sucess Close Thread Handle",
+                "ThreadID: ",threadID_,"\n");
+#endif 
         }
         else
         {
-            PRINT_ERROR_LOG("Thread Close Handle", WSAGetLastError());
+            PRINT_ERROR_LOG("Thread Close Handle", WSAGetLastError(),"\n");
         }
     }
 }
 
 /*여러 가지 기능들 */
-void CSnowThread::SetThreadPriority(const int32_t priority)
+void CSnowThread::SetThreadPriority(const int32_t priority) 
 {
     if (::SetThreadPriority(hThreadHandle_, priority) == 0)
     {
@@ -26,7 +29,7 @@ void CSnowThread::SetThreadPriority(const int32_t priority)
     }
 }
 
-int32_t CSnowThread::GetThreadPriority() const
+int32_t CSnowThread::GetThreadPriority() const 
 {
     if (hThreadHandle_ == INVALID_HANDLE_VALUE)return -1;
     return ::GetThreadPriority(hThreadHandle_);
