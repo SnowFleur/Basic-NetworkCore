@@ -2,7 +2,6 @@
 /*
 - Developer: PDH
 - Descriptor: Socket의 다양한 기능을 캡슐화한 클래스  
--
 */
 #include"WindowsHeader.h"
 #include"LogCollector.h"
