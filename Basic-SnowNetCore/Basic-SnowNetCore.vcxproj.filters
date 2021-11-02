@@ -23,6 +23,9 @@
     <Filter Include="SnowNetCore\Utilty">
       <UniqueIdentifier>{a2b95b08-8704-4470-86cb-776545bd89da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SnowNetCore\SnowServer">
+      <UniqueIdentifier>{83fa6908-0756-48fd-92c1-82c82a1c643e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Buffer.h">
@@ -61,6 +64,12 @@
     <ClInclude Include="SocketPool.h">
       <Filter>SnowNetCore\Utilty</Filter>
     </ClInclude>
+    <ClInclude Include="SnowSocketServer.h">
+      <Filter>SnowNetCore\SnowServer</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowAcceptor.h">
+      <Filter>SnowNetCore\SnowServer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SnowSession.cpp">
@@ -74,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="NetAddress.cpp">
       <Filter>SnowNetCore\NetAddress</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowSocketServer.cpp">
+      <Filter>SnowNetCore\SnowServer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

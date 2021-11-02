@@ -155,7 +155,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="SnowAcceptor.h" />
     <ClInclude Include="Buffer.h" />
+    <ClInclude Include="SnowSocketServer.h" />
     <ClInclude Include="DataTypes.h" />
     <ClInclude Include="DefineUtilty.h" />
     <ClInclude Include="Lock.h" />
@@ -170,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NetAddress.cpp" />
+    <ClCompile Include="SnowSocketServer.cpp" />
     <ClCompile Include="SnowSession.cpp" />
     <ClCompile Include="SnowSocket.cpp" />
     <ClCompile Include="SnowThread.cpp" />

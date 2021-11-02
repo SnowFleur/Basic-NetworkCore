@@ -1,14 +1,14 @@
 #pragma once
 /*
 - Developer: PDH
-- Descriptor: Socket의 다양한 기능을 캡슐화한 클래스  
+- Descriptor: Socket의 다양한 기능을 캡슐화한 클래스
+-
 */
 #include"WindowsHeader.h"
 #include"LogCollector.h"
 #include"DataTypes.h"
 
-class CSnowSocket 
-{
+class CSnowSocket {
 private:
     SOCKET      socket_;
 public:
@@ -16,6 +16,7 @@ public:
         socket_(INVALID_SOCKET)
     {
         switch (socketType) {
+
         case SOCKET_TYPE::TCP_TYPE:
             socket_ = WSASocket(AF_INET, SOCK_STREAM, IPPROTO_TCP, NULL, 0, WSA_FLAG_OVERLAPPED);
             break;
@@ -25,27 +26,23 @@ public:
         default:
             break;
         }
-        if (socket_ == INVALID_SOCKET) {
+        if (socket_ == INVALID_SOCKET)
+        {
             PRINT_ERROR_LOG("Can Not Init Socket", WSAGetLastError());
         }
     }
-    ~CSnowSocket()noexcept {
+    ~CSnowSocket()noexcept
+    {
         if (socket_ != INVALID_SOCKET)
             closesocket(socket_);
     }
 public:
 
-    inline SOCKET GetSocket()const { return socket_; }
-    bool    Bind(const SOCKADDR_IN* sockAddrIn);
-    bool    Bind(const char* IP, const USHORT port, const USHORT sinFamily);
-    bool    Connect(const SOCKADDR_IN* serverAddr);
-    SOCKET  Accept(const SOCKADDR* socketAddr);
-    bool    Listen();
-    bool    Close();
-    bool    Shutdown();
+    inline SOCKET GetSocket()const            { return socket_; }
+    inline void   SetSocket(SOCKET socket)    { socket_ = socket; }
 
     /*Linger는 CloseSocket을 했을 때 Send 버퍼에 남은 데이터를 보낼지 말지 정하는 옵션 함수*/
-    inline bool SetLinger(UINT16 onoff, UINT16 linger) 
+    inline bool SetLinger(UINT16 onoff, UINT16 linger)
     {
         LINGER option{};
         option.l_onoff = onoff;
@@ -82,9 +79,9 @@ public:
     {
         tcp_keepalive tcpkl;
         ZeroMemory(&tcpkl, sizeof(tcpkl));
-        DWORD dwTemp;
-        tcpkl.onoff             = onoff;
-        tcpkl.keepalivetime     = checkmsTime;
+        DWORD dwTemp = 0;
+        tcpkl.onoff = onoff;
+        tcpkl.keepalivetime = checkmsTime;
         tcpkl.keepaliveinterval = interValmsTime;
 
         // return setsockopt(socket_, SOL_SOCKET, SO_UPDATE_ACCEPT_CONTEXT, reinterpret_cast<char*>(&tcpkl), sizeof(tcpkl));
@@ -93,13 +90,22 @@ public:
     }
 
     /*LienSocket의 backlong를 막는 함수true=막기 false=허용 */
-    inline bool SetConditionalAccpet(bool flag) 
+    inline bool SetConditionalAccpet(bool flag)
     {
         return SetSocketOption(SO_CONDITIONAL_ACCEPT, flag);
     }
+
+    bool    OnBind(const SOCKADDR_IN* sockAddrIn);
+    bool    OnBind(const char* IP, const USHORT port, const USHORT sinFamily);
+    bool    OnConnect(const SOCKADDR_IN* serverAddr);
+    SOCKET  OnAccept(const SOCKADDR* socketAddr);
+    bool    OnListen();
+    bool    OnClose();
+    bool    OnShutdown();
+
 private:
     template<class _Ty>
-    bool inline SetSocketOption(INT32 name, _Ty option) 
+    bool inline SetSocketOption(INT32 name, _Ty option)
     {
         return setsockopt(socket_, SOL_SOCKET, name, reinterpret_cast<char*>(&option), sizeof(option)) == SOCKET_ERROR ? false : true;
     }

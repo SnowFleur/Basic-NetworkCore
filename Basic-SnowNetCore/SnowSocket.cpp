@@ -1,98 +1,83 @@
 #include"SnowSocket.h"
 #include"LogCollector.h"
 
-bool CSnowSocket::Bind(const SOCKADDR_IN* sockAddrIn)
-{
+bool CSnowSocket::OnBind(const SOCKADDR_IN* sockAddrIn) {
 
-    if (sockAddrIn == nullptr)
-    {
+    if (sockAddrIn == nullptr) {
         PRINT_ERROR_LOG("SOCKADDR_IN IS NULLPTR", WSAGetLastError());
         return false;
     }
 
-    if (bind(socket_, reinterpret_cast<SOCKADDR*>(const_cast<SOCKADDR_IN*>(sockAddrIn)), sizeof(SOCKADDR_IN)) == SOCKET_ERROR)
-    {
+    if (bind(socket_, reinterpret_cast<SOCKADDR*>(const_cast<SOCKADDR_IN*>(sockAddrIn)), sizeof(SOCKADDR_IN)) == SOCKET_ERROR) {
         PRINT_ERROR_LOG("BIND", WSAGetLastError());
-        Close();
+        OnClose();
         return false;
     }
     return true;
 }
 
-bool CSnowSocket::Bind(const char* IP, const USHORT port, const USHORT sinFamily) 
-{
+bool CSnowSocket::OnBind(const char* IP, const USHORT port, const USHORT sinFamily) {
+
     SOCKADDR_IN sockAddr;
     ZeroMemory(&sockAddr, sizeof(SOCKADDR_IN));
     sockAddr.sin_family = sinFamily;
-    sockAddr.sin_port   = htons(port);
+    sockAddr.sin_port = htons(port);
     inet_pton(sinFamily, IP, &sockAddr.sin_addr);
 
-    if (bind(socket_, reinterpret_cast<SOCKADDR*>(const_cast<SOCKADDR_IN*>(&sockAddr)), sizeof(SOCKADDR_IN)) == SOCKET_ERROR)
-    {
+    if (bind(socket_, reinterpret_cast<SOCKADDR*>(const_cast<SOCKADDR_IN*>(&sockAddr)), sizeof(SOCKADDR_IN)) == SOCKET_ERROR) {
         PRINT_ERROR_LOG("BIND", WSAGetLastError());
-        Close();
+        OnClose();
         return false;
     }
     return false;
 }
 
-bool CSnowSocket::Listen()
-{
+bool CSnowSocket::OnListen() {
 
-    if (socket_ == INVALID_SOCKET)
-    {
+    if (socket_ == INVALID_SOCKET) {
         PRINT_ERROR_LOG("SOCKET IS INVALID_SOCKET", WSAGetLastError());
         return false;
     }
 
-    if (listen(socket_, SOMAXCONN) == SOCKET_ERROR)
-    {
+    if (listen(socket_, SOMAXCONN) == SOCKET_ERROR) {
         PRINT_ERROR_LOG("LISTEN IS FAIL", WSAGetLastError());
-        Close();
+        OnClose();
         return false;
     }
     return true;
 }
 
-bool CSnowSocket::Close()
-{
+bool CSnowSocket::OnClose() {
 
-    if (socket_ != INVALID_SOCKET)
-    {
+    if (socket_ != INVALID_SOCKET) {
         closesocket(socket_);
         return true;
     }
     return false;
 }
 
-bool CSnowSocket::Shutdown()
-{
+bool CSnowSocket::OnShutdown() {
 
-    if (socket_ != INVALID_SOCKET)
-    {
-        shutdown(socket_,SD_SEND);
+    if (socket_ != INVALID_SOCKET) {
+        shutdown(socket_, SD_SEND);
         return true;
     }
     return false;
 }
 
-bool CSnowSocket::Connect(const SOCKADDR_IN* serverAddr)
-{
+bool CSnowSocket::OnConnect(const SOCKADDR_IN* serverAddr) {
 
-    if (serverAddr == nullptr)
-    {
+    if (serverAddr == nullptr) {
         PRINT_ERROR_LOG("SOCKADDR_IN IS nullptr", WSAGetLastError());
         return false;
     }
 
-    if (socket_ == INVALID_SOCKET)
-    {
+    if (socket_ == INVALID_SOCKET) {
         PRINT_ERROR_LOG("SOCKET IS INVALID_SOCKET", WSAGetLastError());
         return false;
     }
 
-    if (connect(socket_, reinterpret_cast<SOCKADDR*>(const_cast<SOCKADDR_IN*>(serverAddr)), sizeof(SOCKADDR_IN)) == SOCKET_ERROR)
-    {
+    if (connect(socket_, reinterpret_cast<SOCKADDR*>(const_cast<SOCKADDR_IN*>(serverAddr)), sizeof(SOCKADDR_IN)) == SOCKET_ERROR) {
         PRINT_ERROR_LOG("COONECT IS FAIL", WSAGetLastError());
         return false;
     }
@@ -100,8 +85,7 @@ bool CSnowSocket::Connect(const SOCKADDR_IN* serverAddr)
     return true;
 }
 
-SOCKET CSnowSocket::Accept(const SOCKADDR* socketAddr)
-{
+SOCKET CSnowSocket::OnAccept(const SOCKADDR* socketAddr) {
     int32_t addrLen = sizeof(SOCKADDR);
     return  accept(socket_, const_cast<SOCKADDR*>(socketAddr), &addrLen);
 }
