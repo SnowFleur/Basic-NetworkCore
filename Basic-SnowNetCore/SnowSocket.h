@@ -8,14 +8,16 @@
 #include"LogCollector.h"
 #include"DataTypes.h"
 
-class CSnowSocket {
+class CSnowSocket 
+{
 private:
     SOCKET      socket_;
 public:
     CSnowSocket(SOCKET_TYPE socketType) :
         socket_(INVALID_SOCKET)
     {
-        switch (socketType) {
+        switch (socketType) 
+        {
 
         case SOCKET_TYPE::TCP_TYPE:
             socket_ = WSASocket(AF_INET, SOCK_STREAM, IPPROTO_TCP, NULL, 0, WSA_FLAG_OVERLAPPED);

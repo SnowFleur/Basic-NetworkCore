@@ -20,7 +20,8 @@ using THREADID = DWORD32;
 #endif // _WIN64
 
 
-class CSnowThread {
+class CSnowThread 
+{
 protected:
     using CallBackThreadFtn = std::function<uint32_t()>;
 private:
@@ -55,9 +56,9 @@ public:
     void        ContextSwitch();
     void        WaitForThread();
 
-    inline DWORD64    GetThreadID()const                  { return threadID_; }
-    inline HANDLE      GetHandle()const                    { return hThreadHandle_; }
-    inline void        SetThreadID(const THREADID ThreadID)   { threadID_ = ThreadID; }
+    inline DWORD64     GetThreadID()const                    { return threadID_; }
+    inline HANDLE      GetHandle()const                      { return hThreadHandle_; }
+    inline void        SetThreadID(const THREADID ThreadID)  { threadID_ = ThreadID; }
 
     /*Template Functions*/
 private:

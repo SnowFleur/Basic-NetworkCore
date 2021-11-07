@@ -1,8 +1,8 @@
 #pragma once
 /*
--   [2021.09.10]
--   Network기능을 상속받는 Session
--	네트워크 기능들을 사용할 수 있음
+- Developer: PDH
+- Descriptor:  Network기능을 상속받는 Session
+- 네트워크 기능들을 사용할 수 있음
 -
 */
 
