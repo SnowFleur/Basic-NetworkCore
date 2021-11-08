@@ -8,17 +8,17 @@
 - C++17, X64
 
 ### 목적
-- 네트워크 테스트를 위해 Code를 반복 제작하는 것을 방지하기 위해 만든 공개용 Network Core Library
+- 네트워크 테스트를 위해 Code를 반복 제작하는 것을 방지하기 위해 만든 공개용 IOCP Server Library
 - Send 와 Recv가 가능할 정도의 정말 단순한 기능만 지원을 한다.
 
 
 ### ❗️ 유의 사항
-- IOCP는 추후에 넣을 가능성이 있음 현재는 기본적인 블럭킹/논블럭킹 Socket만 지원
+- 그냥 간단하게 로컬에서 테스트만 하기 위해서 제작했음
 - 버퍼 관리, 스레드 관리 기능등은 넣지 않았음
 - TCP/IP 프로토콜에서 발생할 수 있는 문제 또한 모든 부분을 상정하지는 않음
 - 버그가 있을 수 있음
 - 급하게 작성했기 때문에 추후 구조의 변화 및 Source Code 변화가 있을 수 있음
-- 그럴일 없겠지만 누구나 수정 및 재배포 가능(사용한다고만 알려주시면 됩니다.)
+- 만약 사용하실 경우 참고만....
 
 
 ### 🔨 업데이트 예정 
@@ -26,6 +26,7 @@
 - Smart Pointer 도입 고려
 - 구글의 Protocol Buffer를 사용해서 테스트 프로젝트를 올릴 예정(프로젝트 테스트도 해야함)
 - PacketHandler
+- SQL Server 와 커넥트가능 하게
 
 ### ✅ 업데이트 완료
  - Log Class 추가 (C++17: Fold Expression)
@@ -46,6 +47,8 @@
 #### Log Class
 - Log를 출력할 수 있는 Log Class이다. 현재는 Print 기능만 지원하며 추후에 SaveLogFile을 지원할 예정이다.
 
+#### CSnowServer Class
+- Iocp기반 Server Clas이다.
   
 
 
