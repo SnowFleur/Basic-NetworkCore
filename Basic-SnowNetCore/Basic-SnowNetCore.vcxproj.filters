@@ -64,10 +64,10 @@
     <ClInclude Include="SocketPool.h">
       <Filter>SnowNetCore\Utilty</Filter>
     </ClInclude>
-    <ClInclude Include="SnowSocketServer.h">
+    <ClInclude Include="SnowServer.h">
       <Filter>SnowNetCore\SnowServer</Filter>
     </ClInclude>
-    <ClInclude Include="SnowAcceptor.h">
+    <ClInclude Include="IocpCore.h">
       <Filter>SnowNetCore\SnowServer</Filter>
     </ClInclude>
   </ItemGroup>
@@ -84,7 +84,7 @@
     <ClCompile Include="NetAddress.cpp">
       <Filter>SnowNetCore\NetAddress</Filter>
     </ClCompile>
-    <ClCompile Include="SnowSocketServer.cpp">
+    <ClCompile Include="SnowServer.cpp">
       <Filter>SnowNetCore\SnowServer</Filter>
     </ClCompile>
   </ItemGroup>

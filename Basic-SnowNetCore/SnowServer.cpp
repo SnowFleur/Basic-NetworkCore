@@ -1,8 +1,8 @@
 #include"SnowServer.h"
 
-CSnowServer::CSnowServer(const uint32_t workerThreadCount, const uint32_t reserveSessionCount) :
-    workerThreadCount_(workerThreadCount_)
-    , sessionCount_(reserveSessionCount)
+CSnowServer::CSnowServer(const uint32_t workerThreadCount):
+    workerThreadCount_(workerThreadCount)
+    , cNetAddress_{}
 {
     vecWorkerThread_.reserve(workerThreadCount_);
 }
@@ -10,11 +10,20 @@ CSnowServer::CSnowServer(const uint32_t workerThreadCount, const uint32_t reserv
 CSnowServer::~CSnowServer() noexcept
 {
 
+    WSACleanup();
 }
 
-void CSnowServer::StartServer(const char* pServerIP, const USHORT port)
+void CSnowServer::StartSnowServer(const char* pServerIP, const USHORT port)
 {
     if (pServerIP == nullptr) return;
+
+    WSADATA stWSAData;
+    // Initialize Winsock
+    if (WSAStartup(MAKEWORD(2, 2), &stWSAData) != 0)
+    {
+        PRINT_ERROR_LOG("Can Not Load winsock.dll", WSAGetLastError());
+        return;
+    }
 
     for (uint32_t i = 0; i < workerThreadCount_; ++i)
     {
@@ -25,9 +34,8 @@ void CSnowServer::StartServer(const char* pServerIP, const USHORT port)
 
     bool isRunningAccpet = true;
 
-
     CSnowSocket accpetSocket{ SOCKET_TYPE::TCP_TYPE };
-    if (accpetSocket.OnBind(pServerIP, port, AF_INET) == false) return;
+    if (accpetSocket.OnBind(pServerIP, port) == false) return;
     if (accpetSocket.OnListen() == false) return;
 
     uint32_t sessionID = 0;
@@ -39,14 +47,29 @@ void CSnowServer::StartServer(const char* pServerIP, const USHORT port)
 
         if (tempSocket != INVALID_SOCKET)
         {
-            CSnowSession* pSnowSession = new CSnowSession{ SOCKET_TYPE::TCP_TYPE,sessionID };
-            sessionID++;
-            CompletedAccpet(pSnowSession);
+            try
+            {
+                CSnowSession* pSnowSession = new CSnowSession{ SOCKET_TYPE::TCP_TYPE,sessionID };
+                pSnowSession->SetSocket(tempSocket);
+                RegitIocp(pSnowSession->GetSocket());
+                sessionID++;
+                CompletedAccpet(pSnowSession);
+            }
+
+            catch (std::exception& ex)
+            {
+                PRINT_ERROR_LOG("Accpet", ex.what(), "\n");
+            }
+
         }
     }
-}s
 
+    for (auto& iter : vecWorkerThread_)
+    {
+        iter->WaitForThread();
+    }
 
+}
 
 uint32_t CSnowServer::ExcuteWorkerThread()
 {

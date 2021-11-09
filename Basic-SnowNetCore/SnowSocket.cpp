@@ -19,14 +19,14 @@ bool CSnowSocket::OnBind(const SOCKADDR_IN* sockAddrIn)
     return true;
 }
 
-bool CSnowSocket::OnBind(const char* IP, const USHORT port, const USHORT sinFamily)
+bool CSnowSocket::OnBind(const char* IP, const USHORT port)
 {
 
     SOCKADDR_IN sockAddr;
     ZeroMemory(&sockAddr, sizeof(SOCKADDR_IN));
-    sockAddr.sin_family = sinFamily;
+    sockAddr.sin_family = AF_INET;
     sockAddr.sin_port = htons(port);
-    inet_pton(sinFamily, IP, &sockAddr.sin_addr);
+    inet_pton(AF_INET, IP, &sockAddr.sin_addr);
 
     if (bind(socket_, reinterpret_cast<SOCKADDR*>(const_cast<SOCKADDR_IN*>(&sockAddr)), sizeof(SOCKADDR_IN)) == SOCKET_ERROR) 
     {
@@ -34,7 +34,7 @@ bool CSnowSocket::OnBind(const char* IP, const USHORT port, const USHORT sinFami
         OnClose();
         return false;
     }
-    return false;
+    return true;
 }
 
 bool CSnowSocket::OnListen() 
