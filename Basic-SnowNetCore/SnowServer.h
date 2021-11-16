@@ -18,7 +18,7 @@ private:
     CNetAddress                       cNetAddress_;
 public:
     CSnowServer(const uint32_t workerThreadCount);
-    ~CSnowServer()noexcept;
+    virtual ~CSnowServer()noexcept;
 
     CSnowServer(const CSnowServer&)                 = delete;
     CSnowServer& operator=(const CSnowServer&)      = delete;

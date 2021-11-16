@@ -16,6 +16,7 @@ CSnowServer::CSnowServer(const uint32_t workerThreadCount):
 
 CSnowServer::~CSnowServer() noexcept
 {
+    vecWorkerThread_.clear();
     WSACleanup();
 }
 
