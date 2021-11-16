@@ -74,8 +74,7 @@ void CSnowServer::StartSnowServer(const char* pServerIP, const USHORT port)
 uint32_t CSnowServer::ExcuteWorkerThread()
 {
     bool isRunning = true;
-
-    DWORD IoByte;
+    DWORD IoByte = 0;
     LPOVERLAPPED  overlapped = nullptr;
     bool          IoEventResult = true;
 #ifdef _WIN64
@@ -96,28 +95,28 @@ uint32_t CSnowServer::ExcuteWorkerThread()
                 return 0;
             }
 
-            OverlappedEx* pOverEx = reinterpret_cast<OverlappedEx*>(overlapped);
+        }
 
-            switch (pOverEx->ioEvent_)
-            {
-            case IO_EVENT::RECV:
-            {
-                CompletedRecv(pOverEx->pSession_, IoByte);
-                SAFE_DELETE(pOverEx);
-                break;
-            }
-            case IO_EVENT::SEND:
-            {
-                CompletedSend(pOverEx->pSession_, IoByte);
-                SAFE_DELETE(pOverEx);
-                break;
-            }
-            default:
-            {
-                std::cout << "Error: Not Define Io Event\n";
-                break;
-            }
-            } // End Switch
+        OverlappedEx* pOverEx = reinterpret_cast<OverlappedEx*>(overlapped);
+
+        switch (pOverEx->ioEvent_)
+        {
+        case IO_EVENT::RECV:
+        {
+            CompletedRecv(pOverEx->pSession_, IoByte);
+            break;
+        }
+        case IO_EVENT::SEND:
+        {
+            CompletedSend(pOverEx->pSession_, IoByte);
+            break;
+        }
+        default:
+        {
+            PRINT_ERROR_LOG("Not Define Io Event\n");
+            break;
+        }
+        SAFE_DELETE(pOverEx);
         }
     }
     return 0;
