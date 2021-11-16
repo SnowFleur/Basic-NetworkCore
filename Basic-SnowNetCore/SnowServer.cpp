@@ -4,19 +4,6 @@ CSnowServer::CSnowServer(const uint32_t workerThreadCount):
     workerThreadCount_(workerThreadCount)
     , cNetAddress_{}
 {
-    vecWorkerThread_.reserve(workerThreadCount_);
-}
-
-CSnowServer::~CSnowServer() noexcept
-{
-
-    WSACleanup();
-}
-
-void CSnowServer::StartSnowServer(const char* pServerIP, const USHORT port)
-{
-    if (pServerIP == nullptr) return;
-
     WSADATA stWSAData;
     // Initialize Winsock
     if (WSAStartup(MAKEWORD(2, 2), &stWSAData) != 0)
@@ -24,13 +11,19 @@ void CSnowServer::StartSnowServer(const char* pServerIP, const USHORT port)
         PRINT_ERROR_LOG("Can Not Load winsock.dll", WSAGetLastError());
         return;
     }
+    vecWorkerThread_.reserve(workerThreadCount_);
+}
 
-    for (uint32_t i = 0; i < workerThreadCount_; ++i)
-    {
-        UptrSnowThread pSnowThread = std::make_unique<CSnowThread>(&CSnowServer::ExcuteWorkerThread, this);
-        pSnowThread->SetThreadID(i * WORERK_THREAD_ID);
-        vecWorkerThread_.emplace_back(std::move(pSnowThread));
-    }
+CSnowServer::~CSnowServer() noexcept
+{
+    WSACleanup();
+}
+
+void CSnowServer::StartSnowServer(const char* pServerIP, const USHORT port)
+{
+    if (pServerIP == nullptr) return;
+ 
+    StartWorkerThread();
 
     bool isRunningAccpet = true;
 
@@ -64,11 +57,27 @@ void CSnowServer::StartSnowServer(const char* pServerIP, const USHORT port)
         }
     }
 
+    WaitForWorkerThread();
+
+
+}
+
+void CSnowServer::StartWorkerThread()
+{
+    for (uint32_t i = 0; i < workerThreadCount_; ++i)
+    {
+        UptrSnowThread pSnowThread = std::make_unique<CSnowThread>(&CSnowServer::ExcuteWorkerThread, this);
+        pSnowThread->SetThreadID(i * WORERK_THREAD_ID);
+        vecWorkerThread_.emplace_back(std::move(pSnowThread));
+    }
+}
+
+void CSnowServer::WaitForWorkerThread()
+{
     for (auto& iter : vecWorkerThread_)
     {
         iter->WaitForThread();
     }
-
 }
 
 uint32_t CSnowServer::ExcuteWorkerThread()

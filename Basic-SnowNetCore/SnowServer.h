@@ -24,9 +24,13 @@ public:
     CSnowServer& operator=(const CSnowServer&)      = delete;
     CSnowServer(CSnowServer&&)noexcept              = delete;
     CSnowServer& operator=(CSnowServer&&) noexcept  = delete;
+
+protected:
+    void StartSnowServer(const char* pServerIP, const USHORT port);
+    void StartWorkerThread();
+    void WaitForWorkerThread();
 public:
 
-    void StartSnowServer(const char* pServerIP, const USHORT port);
     uint32_t ExcuteWorkerThread();
 
     virtual void CompletedAccpet(CSnowSession* pAcceptCompleteSession) = 0;
