@@ -24,14 +24,16 @@
 ### 🔨 업데이트 예정 
 - 다양한 C++17기능 (std::stirng_view, std::any, Fold Expression)
 - Smart Pointer 도입 고려
-- 구글의 Protocol Buffer를 사용해서 테스트 프로젝트를 올릴 예정(프로젝트 테스트도 해야함)
 - PacketHandler
 - SQL Server 와 커넥트가능 하게
+- Socket Pool
 
 ### ✅ 업데이트 완료
  - Log Class 추가 (C++17: Fold Expression)
  - NetAddress Class 추가
- - 
+ - Protocol Buffer 기반 테스트 프로젝트
+ - IOCP 기반 Server lib
+ - Lock Guard
 
 ### 📚 주요 클래스 설명 및 기능
 
@@ -48,8 +50,10 @@
 - Log를 출력할 수 있는 Log Class이다. 현재는 Print 기능만 지원하며 추후에 SaveLogFile을 지원할 예정이다.
 
 #### CSnowServer Class
-- Iocp기반 Server Clas이다.
-  
+- Iocp기반 Server Class이다.
+
+#### IocpCore class
+- Iocp Handle을 가지는 Class이다. 이 클래스를 상속받는 Server가 CSnowServer Class이다.
 
 
 
