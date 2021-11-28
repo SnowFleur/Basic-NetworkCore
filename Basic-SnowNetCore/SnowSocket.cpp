@@ -77,10 +77,10 @@ bool CSnowSocket::OnShutdown()
     return false;
 }
 
-bool CSnowSocket::OnConnect(const SOCKADDR_IN* serverAddr)
+bool CSnowSocket::OnConnect(const SOCKADDR_IN* pServerAddr)
 {
 
-    if (serverAddr == nullptr)
+    if (pServerAddr == nullptr)
     {
         PRINT_ERROR_LOG("SOCKADDR_IN IS nullptr", WSAGetLastError());
         return false;
@@ -92,7 +92,7 @@ bool CSnowSocket::OnConnect(const SOCKADDR_IN* serverAddr)
         return false;
     }
 
-    if (connect(socket_, reinterpret_cast<SOCKADDR*>(const_cast<SOCKADDR_IN*>(serverAddr)), sizeof(SOCKADDR_IN)) == SOCKET_ERROR) 
+    if (connect(socket_, reinterpret_cast<SOCKADDR*>(const_cast<SOCKADDR_IN*>(pServerAddr)), sizeof(SOCKADDR_IN)) == SOCKET_ERROR)
     {
         PRINT_ERROR_LOG("COONECT IS FAIL", WSAGetLastError());
         return false;
@@ -101,8 +101,8 @@ bool CSnowSocket::OnConnect(const SOCKADDR_IN* serverAddr)
     return true;
 }
 
-SOCKET CSnowSocket::OnAccept(const SOCKADDR* socketAddr)
+SOCKET CSnowSocket::OnAccept(const SOCKADDR* pSocketAddr)
 {
     int32_t addrLen = sizeof(SOCKADDR);
-    return  accept(socket_, const_cast<SOCKADDR*>(socketAddr), &addrLen);
+    return  accept(socket_, const_cast<SOCKADDR*>(pSocketAddr), &addrLen);
 }

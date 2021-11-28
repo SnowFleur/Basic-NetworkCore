@@ -2,7 +2,7 @@
 
 CSnowServer::CSnowServer(const uint32_t workerThreadCount):
     workerThreadCount_(workerThreadCount)
-    , cNetAddress_{}
+    , netAddress_{}
 {
     WSADATA stWSAData;
     // Initialize Winsock

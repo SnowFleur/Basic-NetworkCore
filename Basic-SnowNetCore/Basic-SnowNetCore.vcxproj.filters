@@ -70,6 +70,9 @@
     <ClInclude Include="IocpCore.h">
       <Filter>SnowNetCore\SnowServer</Filter>
     </ClInclude>
+    <ClInclude Include="ThreadSafeQueue.h">
+      <Filter>SnowNetCore\Utilty</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SnowSession.cpp">
