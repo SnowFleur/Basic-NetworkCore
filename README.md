@@ -27,7 +27,7 @@
 - PacketHandler
 - SQL Server 와 커넥트가능 하게
 - Socket Pool
-- Thread Safe Queue
+- Template 기반 Thread Safe Queue
 
 ### ✅ 업데이트 완료
  - Log Class 추가 (C++17: Fold Expression)
