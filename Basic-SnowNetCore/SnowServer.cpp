@@ -54,7 +54,6 @@ void CSnowServer::StartSnowServer(const char* pServerIP, const USHORT port)
             {
                 PRINT_ERROR_LOG("Accpet", ex.what(), "\n");
             }
-
         }
     }
 
@@ -63,13 +62,36 @@ void CSnowServer::StartSnowServer(const char* pServerIP, const USHORT port)
 
 }
 
-void CSnowServer::StartWorkerThread()
+bool CSnowServer::CreateWorkerTherad(const uint32_t threadCount, const bool isStartThread)
 {
-    for (uint32_t i = 0; i < workerThreadCount_; ++i)
+    for (ThreadID i = 0; i < threadCount; ++i)
     {
-        UptrSnowThread pSnowThread = std::make_unique<CSnowThread>(&CSnowServer::ExcuteWorkerThread, this);
+        UptrSnowThread pSnowThread = std::make_unique<CSnowThread>(isStartThread, &CSnowServer::ExcuteWorkerThread, this);
         pSnowThread->SetThreadID(i * WORERK_THREAD_ID);
         vecWorkerThread_.emplace_back(std::move(pSnowThread));
+    }
+    return true;
+}
+
+void CSnowServer::StartWorkerThread()
+{
+    for (const auto& iter : vecWorkerThread_)
+    {
+        if (iter->GetIsStartedThread() == false)
+        {
+            if (iter->StartThread() == true)
+            {
+                PRINT_INFO_LOG("Sucess Start WorkerThread id:", iter->GetThreadID(), "\n");
+            }
+            else
+            {
+                PRINT_ERROR_LOG("Failed Start WorkerThread id:", iter->GetThreadID(), "\n");
+            }
+        }
+        else
+        {
+            PRINT_INFO_LOG(" Started WorkerThread id:", iter->GetThreadID(), "\n");
+        }
     }
 }
 

@@ -27,6 +27,7 @@ public:
 
 protected:
     void StartSnowServer(const char* pServerIP, const USHORT port);
+    bool CreateWorkerTherad(const uint32_t threadCount, const bool isStartThread);
     void StartWorkerThread();
     void WaitForWorkerThread();
 public:
