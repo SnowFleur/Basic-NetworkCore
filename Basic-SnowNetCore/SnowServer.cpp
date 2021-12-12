@@ -1,9 +1,12 @@
 #include"SnowServer.h"
 
-CSnowServer::CSnowServer(const uint32_t workerThreadCount):
-    workerThreadCount_(workerThreadCount)
+CSnowServer::CSnowServer(const char* pServerIP, const USHORT port) :
+    workerThreadCount_()
     , netAddress_{}
 {
+
+    netAddress_.SetAddrInfor(pServerIP, port);
+
     WSADATA stWSAData;
     // Initialize Winsock
     if (WSAStartup(MAKEWORD(2, 2), &stWSAData) != 0)
@@ -20,16 +23,15 @@ CSnowServer::~CSnowServer() noexcept
     WSACleanup();
 }
 
-void CSnowServer::StartSnowServer(const char* pServerIP, const USHORT port)
+void CSnowServer::StartSnowServer()
 {
-    if (pServerIP == nullptr) return;
  
     StartWorkerThread();
 
     bool isRunningAccpet = true;
 
     CSnowSocket accpetSocket{ SOCKET_TYPE::TCP_TYPE };
-    if (accpetSocket.OnBind(pServerIP, port) == false) return;
+    if (accpetSocket.OnBind(netAddress_.GetAddrInfor()) == false) return;
     if (accpetSocket.OnListen() == false) return;
 
     uint32_t sessionID = 0;
@@ -64,6 +66,9 @@ void CSnowServer::StartSnowServer(const char* pServerIP, const USHORT port)
 
 bool CSnowServer::CreateWorkerTherad(const uint32_t threadCount, const bool isStartThread)
 {
+    workerThreadCount_ = threadCount;
+    vecWorkerThread_.reserve(workerThreadCount_);
+
     for (ThreadID i = 0; i < threadCount; ++i)
     {
         UptrSnowThread pSnowThread = std::make_unique<CSnowThread>(isStartThread, &CSnowServer::ExcuteWorkerThread, this);

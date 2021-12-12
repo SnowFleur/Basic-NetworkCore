@@ -28,7 +28,7 @@ DWORD CSnowSession::OnRecv()
     {
         if (WSAGetLastError() != WSA_IO_PENDING)
         {
-            PRINT_ERROR_LOG(" WSARecv ", " ID: ", GetSessionID(), "WSAGetLastError: ", WSAGetLastError());
+            PRINT_ERROR_LOG(" WSARecv ", " ID: ", GetSessionID(), "WSAGetLastError: ", WSAGetLastError(),"\n");
         }
     }
     return dwBytes;
@@ -46,7 +46,7 @@ DWORD CSnowSession::OnSend()
     {
         if (WSAGetLastError() != WSA_IO_PENDING)
         {
-            PRINT_ERROR_LOG(" WSARecv ", " ID: ", GetSessionID(), "WSAGetLastError: ", WSAGetLastError());
+            PRINT_ERROR_LOG(" WSARecv ", " ID: ", GetSessionID(), "WSAGetLastError: ", WSAGetLastError(),"\n");
         }
     }
     return dwBytes;
